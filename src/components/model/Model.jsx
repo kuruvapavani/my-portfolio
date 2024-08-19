@@ -1,175 +1,44 @@
-import { useGLTF, useAnimations } from "@react-three/drei";
-import { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { useGLTF, useAnimations } from '@react-three/drei';
 
-const Model = () => {
-  const { nodes, animations } = useGLTF("./scene.glb");
+function Model() {
   const modelRef = useRef();
-  const { actions } = useAnimations(animations, modelRef);
+  const mixerRef = useRef();
 
+  // Load the model and animations
+  const { nodes, animations } = useGLTF('./moana.glb');
+  const { actions, mixer } = useAnimations(animations, modelRef);
+
+  // Set up animation mixer
   useEffect(() => {
-    if (actions["mixamo.com"]) {
-      const action = actions["mixamo.com"];
-      action.play();
-    } else {
-      console.warn('Animation "mixamo.com" not found.');
-    }
+    mixerRef.current = mixer;
 
-    return () => {
-      if (actions["mixamo.com"]) {
-        actions["mixamo.com"].stop();
-      }
-    };
-  }, [actions]);
+    if (mixer) {
+      // Log available actions and clips
+      animations.forEach((clip) => {
+        console.log('Animation Clip:', clip.name);
+        const action = mixer.clipAction(clip);
+        console.log('Animation Action:', action);
+        action.play(); // Play default animation
+      });
+    }
+  }, [mixer, animations]);
+
+  // Animate on each frame
+  useFrame((state, delta) => {
+    if (mixerRef.current) {
+      mixerRef.current.update(delta);
+    }
+  });
 
   return (
-    <group ref={modelRef}>
-      {/* <mesh
-        geometry={nodes.Astronaut_mesh_1_2_Astronaut_mat1_0.geometry}
-        material={nodes.Astronaut_mesh_1_2_Astronaut_mat1_0.material}
-        position={nodes.Astronaut_mesh_1_2_Astronaut_mat1_0.position}
-      />
-      <mesh
-        geometry={nodes.Astronaut_mesh_Astronaut_mat1_0.geometry}
-        material={nodes.Astronaut_mesh_Astronaut_mat1_0.material}
-        position={nodes.Astronaut_mesh_Astronaut_mat1_0.position}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_2.skeleton}
-        geometry={nodes.Object_2.geometry}
-        material={nodes.Object_2.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_4.skeleton}
-        geometry={nodes.Object_4.geometry}
-        material={nodes.Object_4.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_6.skeleton}
-        geometry={nodes.Object_6.geometry}
-        material={nodes.Object_6.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_7.skeleton}
-        geometry={nodes.Object_7.geometry}
-        material={nodes.Object_7.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_8.skeleton}
-        geometry={nodes.Object_8.geometry}
-        material={nodes.Object_8.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_9.skeleton}
-        geometry={nodes.Object_9.geometry}
-        material={nodes.Object_9.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_10.skeleton}
-        geometry={nodes.Object_10.geometry}
-        material={nodes.Object_10.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_11.skeleton}
-        geometry={nodes.Object_11.geometry}
-        material={nodes.Object_11.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_12.skeleton}
-        geometry={nodes.Object_12.geometry}
-        material={nodes.Object_12.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_13.skeleton}
-        geometry={nodes.Object_13.geometry}
-        material={nodes.Object_13.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_14.skeleton}
-        geometry={nodes.Object_14.geometry}
-        material={nodes.Object_14.material}
-      /> */}
-
-      {Object.keys(nodes).map((key) => (
-        <primitive
-          key={key}
-          object={nodes[key]}
-          position={nodes[key].position}
-        />
-      ))}
+    <group ref={modelRef} dispose={null}>
+      <primitive object={nodes.Scene} />
+      {/* Adjust this to include all required parts of the model */}
     </group>
   );
-};
+}
 
-useGLTF.preload("./scene.glb");
 
 export default Model;
-
-
-
-
-      {/* <mesh
-        geometry={nodes.Astronaut_mesh_1_2_Astronaut_mat1_0.geometry}
-        material={nodes.Astronaut_mesh_1_2_Astronaut_mat1_0.material}
-        position={nodes.Astronaut_mesh_1_2_Astronaut_mat1_0.position}
-      />
-      <mesh
-        geometry={nodes.Astronaut_mesh_Astronaut_mat1_0.geometry}
-        material={nodes.Astronaut_mesh_Astronaut_mat1_0.material}
-        position={nodes.Astronaut_mesh_Astronaut_mat1_0.position}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_2.skeleton}
-        geometry={nodes.Object_2.geometry}
-        material={nodes.Object_2.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_4.skeleton}
-        geometry={nodes.Object_4.geometry}
-        material={nodes.Object_4.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_6.skeleton}
-        geometry={nodes.Object_6.geometry}
-        material={nodes.Object_6.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_7.skeleton}
-        geometry={nodes.Object_7.geometry}
-        material={nodes.Object_7.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_8.skeleton}
-        geometry={nodes.Object_8.geometry}
-        material={nodes.Object_8.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_9.skeleton}
-        geometry={nodes.Object_9.geometry}
-        material={nodes.Object_9.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_10.skeleton}
-        geometry={nodes.Object_10.geometry}
-        material={nodes.Object_10.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_11.skeleton}
-        geometry={nodes.Object_11.geometry}
-        material={nodes.Object_11.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_12.skeleton}
-        geometry={nodes.Object_12.geometry}
-        material={nodes.Object_12.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_13.skeleton}
-        geometry={nodes.Object_13.geometry}
-        material={nodes.Object_13.material}
-      />
-      <skinnedMesh
-        skeleton={nodes.Object_14.skeleton}
-        geometry={nodes.Object_14.geometry}
-        material={nodes.Object_14.material}
-      /> */}
-

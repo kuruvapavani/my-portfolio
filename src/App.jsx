@@ -39,6 +39,15 @@ const App = () => {
       <div className="h-screen ">Section 1</div>
       <div className="h-screen">Section 2</div>
       <div className="h-screen">Section 3</div>
+      <div className="h-screen ">Section 1</div>
+      <div className="h-screen">Section 2</div>
+      <div className="h-screen">Section 3</div><div className="h-screen ">Section 1</div>
+      <div className="h-screen">Section 2</div>
+      <div className="h-screen">Section 3</div><div className="h-screen ">Section 1</div>
+      <div className="h-screen">Section 2</div>
+      <div className="h-screen">Section 3</div><div className="h-screen ">Section 1</div>
+      <div className="h-screen">Section 2</div>
+      <div className="h-screen">Section 3</div>
     </div>
   );
 };
