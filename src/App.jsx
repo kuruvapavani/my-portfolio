@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import CanvasContainer from "./components/model/CanvasContainer";
+
 const App = () => {
   useEffect(() => {
     const video = document.getElementById('background-video');
@@ -8,10 +9,13 @@ const App = () => {
 
     const handleScroll = () => {
       clearTimeout(isScrolling);
-      video.play();
+      video.play(); // Play video on scroll
       isScrolling = setTimeout(() => {
-        video.pause();
-      }, 200);
+        // Keep playing the video for 2 seconds after scrolling stops
+        setTimeout(() => {
+          video.pause();
+        }, 1000); // 2-second delay before pausing
+      }, 100); // Delay to detect scroll stop
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -36,18 +40,12 @@ const App = () => {
           Your browser does not support the video tag.
         </video>
       </div>
-      <div className="h-screen ">Section 1</div>
+      <div className="h-screen">Section 1</div>
       <div className="h-screen">Section 2</div>
       <div className="h-screen">Section 3</div>
-      <div className="h-screen ">Section 1</div>
-      <div className="h-screen">Section 2</div>
-      <div className="h-screen">Section 3</div><div className="h-screen ">Section 1</div>
-      <div className="h-screen">Section 2</div>
-      <div className="h-screen">Section 3</div><div className="h-screen ">Section 1</div>
-      <div className="h-screen">Section 2</div>
-      <div className="h-screen">Section 3</div><div className="h-screen ">Section 1</div>
-      <div className="h-screen">Section 2</div>
-      <div className="h-screen">Section 3</div>
+      <div className="h-screen">Section 4</div>
+      <div className="h-screen">Section 5</div>
+      {/* Add more sections if needed */}
     </div>
   );
 };

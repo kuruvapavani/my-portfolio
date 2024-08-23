@@ -18,23 +18,30 @@ function Model() {
     },
   });
   const [isScrolling, setIsScrolling] = useState(false);
-  const [swimStarted, setSwimStarted] = useState(false);
+  const [scrollStopped, setScrollStopped] = useState(false);
 
   // Load the model and animations
   const { nodes, animations } = useGLTF("./model.glb");
   const { actions, mixer } = useAnimations(animations, modelRef);
-  console.log(animations);
 
   // Set up scroll event listener
   useEffect(() => {
+    let scrollTimeout;
+
     const handleScroll = () => {
       setIsScrolling(true);
-      clearTimeout(handleScroll.timeout);
-      handleScroll.timeout = setTimeout(() => setIsScrolling(false), 100);
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+        setScrollStopped(true);
+      }, 100);
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, []);
 
   // Set up animation mixer and play the appropriate animation
@@ -45,20 +52,28 @@ function Model() {
       if (isScrolling && actions.swim) {
         actions.float.stop();
         actions.swim.play();
-        setSwimStarted(true); // Track that the swim animation has started
-      } else if (actions.float) {
+      } else if (!isScrolling && actions.float) {
+        // Start float animation on initial load
         actions.swim.stop();
         actions.float.play();
         actions.float.timeScale = 0.5;
-        setSwimStarted(false); // Reset the swimStarted flag
+      } else if (scrollStopped && actions.swim) {
+        setTimeout(() => {
+          if (actions.float) {
+            actions.swim.stop();
+            actions.float.play();
+            actions.float.timeScale = 0.5;
+          }
+          setScrollStopped(false);
+        }, 5000); // 2-second delay before switching to the float animation
       }
     }
-  }, [actions, isScrolling]);
+  }, [actions, isScrolling, scrollStopped]);
 
   // Use spring for smooth rotation animation
   const { rotationY } = useSpring({
-    rotationY: swimStarted ? 3.5 : 0.7, // Target rotation based on swimStarted
-    config: { mass: 1, tension: 280, friction: 60 }, // Adjust these values to control the smoothness
+    rotationY: isScrolling ? 3.5 : 0.7,
+    config: { mass: 1, tension: 280, friction: 60 },
   });
 
   // Animate on each frame
@@ -82,5 +97,6 @@ function Model() {
     </animated.group>
   );
 }
+
 useGLTF.preload('./model.glb');
 export default Model;

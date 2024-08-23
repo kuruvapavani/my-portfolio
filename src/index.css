@@ -17,3 +17,8 @@
   object-fit: cover;
   z-index: -1;
 }
+
+body{
+  color: white;
+  font-weight: bolder;
+}

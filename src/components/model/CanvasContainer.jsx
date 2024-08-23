@@ -7,7 +7,7 @@ const CanvasContainer = () => {
   return (
     <div className='h-screen'>
       <Canvas>
-        <OrbitControls enableZoom={false}/>
+        {/* <OrbitControls enableZoom={false}/> */}
         <ambientLight intensity={1}/>
         <Environment preset='city'/>
         <Model />
