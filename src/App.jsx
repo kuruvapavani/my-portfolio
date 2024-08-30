@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import CanvasContainer from "./components/model/CanvasContainer";
+import Nav from './components/nav/Nav';
 
 const App = () => {
   useEffect(() => {
@@ -27,6 +28,7 @@ const App = () => {
 
   return (
     <div>
+        <Nav />
       <div className="h-screen w-full fixed top-0">
         <CanvasContainer />
       </div>
@@ -40,11 +42,12 @@ const App = () => {
           Your browser does not support the video tag.
         </video>
       </div>
-      <div className="h-screen">Section 1</div>
-      <div className="h-screen">Section 2</div>
-      <div className="h-screen">Section 3</div>
-      <div className="h-screen">Section 4</div>
-      <div className="h-screen">Section 5</div>
+      <div className="h-screen">
+      </div>
+      <div className="h-screen"></div>
+      <div className="h-screen"></div>
+      <div className="h-screen"></div>
+      <div className="h-screen"></div>
       {/* Add more sections if needed */}
     </div>
   );
