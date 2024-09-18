@@ -5,7 +5,11 @@ export default {
     './src/**/*.{js,jsx,ts,tsx}', // Include your React files
   ],
   theme: {
-    extend: {},
+    extend: {
+    fontFamily: {
+        exo: ['"Exo"', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

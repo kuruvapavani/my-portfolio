@@ -8,7 +8,7 @@ const CanvasContainer = () => {
     <div className='h-screen'>
       <Canvas>
         {/* <OrbitControls enableZoom={false}/> */}
-        <ambientLight intensity={1}/>
+        <ambientLight intensity={0.5}/>
         <Environment preset='city'/>
         <Model />
       </Canvas>

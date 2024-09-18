@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react';
-import CanvasContainer from "./components/model/CanvasContainer";
-import Nav from './components/nav/Nav';
+import Layout from './components/Layout';
+import Hero from './components/hero/Hero';
+import About from './components/about/About';
+import Projects from './components/projects/Projects';
+import Skills from './components/skills/Skills';
+import RippleEffect from './components/RippleEffect';
 
 const App = () => {
   useEffect(() => {
     const video = document.getElementById('background-video');
-
     let isScrolling;
 
     const handleScroll = () => {
       clearTimeout(isScrolling);
-      video.play(); // Play video on scroll
+      video.play();
       isScrolling = setTimeout(() => {
-        // Keep playing the video for 2 seconds after scrolling stops
         setTimeout(() => {
           video.pause();
-        }, 1000); // 2-second delay before pausing
-      }, 100); // Delay to detect scroll stop
+        }, 1000);
+      }, 100);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -27,12 +29,8 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-        <Nav />
-      <div className="h-screen w-full fixed top-0">
-        <CanvasContainer />
-      </div>
-      <div className="video-container relative w-full h-screen overflow-hidden">
+    <RippleEffect>
+      <div className="video-container relative w-full h-screen">
         <video
           id="background-video"
           muted
@@ -42,14 +40,15 @@ const App = () => {
           Your browser does not support the video tag.
         </video>
       </div>
-      <div className="h-screen">
-      </div>
-      <div className="h-screen"></div>
-      <div className="h-screen"></div>
-      <div className="h-screen"></div>
-      <div className="h-screen"></div>
-      {/* Add more sections if needed */}
-    </div>
+
+      {/* Wrapping each section in Layout */}
+      <>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+      </>
+    </RippleEffect>
   );
 };
 

@@ -7,17 +7,12 @@ import { Leva, useControls } from "leva";
 function Model() {
   const modelRef = useRef();
   const mixerRef = useRef();
-  const desktopControls = useControls("Desktop", {
-    position: { value: { x: -10, y: -5, z: -5 }, step: 0.1 },
-    rotation: { value: { x: -0.2, y: 0.7, z: 0.2 }, step: 0.1 },
-    scale: { value: 2, min: 0.5, max: 3, step: 0.1 },
-  });
 
   const [isScrolling, setIsScrolling] = useState(false);
   const [scrollStopped, setScrollStopped] = useState(false);
-  const [modelPosition, setModelPosition] = useState(desktopControls.position);
-  const [modelRotation, setModelRotation] = useState(desktopControls.rotation);
-  const [modelScale, setModelScale] = useState(desktopControls.scale);
+  const [modelPosition, setModelPosition] = useState([-11.5,-5,-5]);
+  const [modelRotation, setModelRotation] = useState([-0.2,0.7,0.2]);
+  const [modelScale, setModelScale] = useState(1.8);
 
   // Load the model and animations
   const { nodes, animations } = useGLTF("./model.glb");
@@ -51,10 +46,11 @@ function Model() {
       if (isScrolling && actions.swim) {
         actions.float.stop();
         actions.swim.play();
+        actions.swim.timeScale = 0.5;
       } else if (!isScrolling && actions.float) {
         actions.swim.stop();
         actions.float.play();
-        actions.float.timeScale = 0.5;
+        actions.float.timeScale = 0.3;
       } else if (scrollStopped && actions.swim) {
         setTimeout(() => {
           if (actions.float) {
@@ -72,7 +68,7 @@ function Model() {
   const { rotationY ,rotationX} = useSpring({
     rotationY: isScrolling ? 3.2 : 0.7,
     rotationX: isScrolling ? 0.7 : -0.2,
-    config: { mass: 1, tension: 280, friction: 60 },
+    config: { mass: 1, tension: 100, friction: 30 },
   });
 
   // Update model position, rotation, and scale based on screen size
@@ -80,19 +76,19 @@ function Model() {
     const updateTransform = () => {
       if (window.matchMedia("(max-width: 767px)").matches) {
         // Mobile view
-        setModelPosition([-2.5, -2.0, -3.0]);
-        setModelRotation([-0.2, 0.7, 0.2]);
-        setModelScale(0.7);
+        setModelPosition([-0.5, -8.2, -2.0]);
+        setModelRotation([-2.2, 2, 0.2]);
+        setModelScale(1);
       } else if (window.matchMedia("(max-width: 1024px)").matches) {
         // Tablet view
-        setModelPosition([-3.5, -2.0, -6.0]);
+        setModelPosition([-2, -2.0, -6.0]);
         setModelRotation([-0.2, 0.7, 0.3]);
-        setModelScale(1);
+        setModelScale(1.5);
       } else {
         // Desktop view
-        setModelPosition([-11.5,-5,-5]);
+        setModelPosition([-2,-5,-5]);
         setModelRotation([-0.2,0.7,0.2]);
-        setModelScale(2);
+        setModelScale(1.8);
       }
     };
 
@@ -102,7 +98,7 @@ function Model() {
     return () => {
       window.removeEventListener("resize", updateTransform);
     };
-  }, [desktopControls]);
+  }, []);
 
   // Animate on each frame
   useFrame((state, delta) => {
