@@ -27,6 +27,42 @@ const experiences = [
     image: "path_to_image3.jpg",
     blogLink: "https://blog3.com",
   },
+  {
+    position: "Software Engineer",
+    company: "Tech Company A",
+    image: "path_to_image1.jpg",
+    blogLink: "https://blog1.com",
+  },
+  {
+    position: "Frontend Developer",
+    company: "Tech Company B",
+    image: "path_to_image2.jpg",
+    blogLink: "https://blog2.com",
+  },
+  {
+    position: "Backend Developer",
+    company: "Tech Company C",
+    image: "path_to_image3.jpg",
+    blogLink: "https://blog3.com",
+  },
+  {
+    position: "Software Engineer",
+    company: "Tech Company A",
+    image: "path_to_image1.jpg",
+    blogLink: "https://blog1.com",
+  },
+  {
+    position: "Frontend Developer",
+    company: "Tech Company B",
+    image: "path_to_image2.jpg",
+    blogLink: "https://blog2.com",
+  },
+  {
+    position: "Backend Developer",
+    company: "Tech Company C",
+    image: "path_to_image3.jpg",
+    blogLink: "https://blog3.com",
+  },
   // Add more experiences as needed
 ];
 
@@ -41,7 +77,7 @@ const ExperienceSection = () => {
     // Scroll-triggered animation for laptops and larger screens
     mm.add("(min-width: 1024px)", () => {
       const totalScrollWidth = experienceElement.scrollWidth - 500;
-
+      document.querySelector('.ts').style.marginTop = `${experienceElement.scrollWidth-2300}px`;
       const experienceTween = gsap.to(experienceElement, {
         x: `-${totalScrollWidth}`, // Scroll distance based on the total width
         ease: "none",
@@ -49,7 +85,7 @@ const ExperienceSection = () => {
 
       ScrollTrigger.create({
         trigger: ".experience-section",
-        start: "top top", // End based on total scroll width
+        start: "top 20%", // End based on total scroll width
         pin: true,
         animation: experienceTween,
         scrub: 1,
@@ -64,7 +100,7 @@ const ExperienceSection = () => {
     // Stack card animation for mobile and tablets
     mm.add("(max-width: 1024px)", () => {
       const items = gsap.utils.toArray(".experience-card");
-
+      document.querySelector('.ts').style.marginTop = `${experienceElement.scrollWidth+2800}px`;
       items.forEach((item, index) => {
         let tl = gsap.timeline({
           scrollTrigger: {
@@ -106,7 +142,7 @@ const ExperienceSection = () => {
   return (
     <section className="min-h-screen es">
       <div className="flex justify-center items-center">
-        <img src="/projects.png" alt="projects" className="heading pt-10" />
+        <img src="/experience.png" alt="projects" className="heading pt-10 esi" />
       </div>
       <section>
         <Layout>

@@ -347,7 +347,7 @@ body{
 
 .experience-section {
   position: relative;
-  padding: 5rem 0;
+  /* padding: 5rem 0; */
   overflow: hidden;
 }
 
@@ -405,3 +405,88 @@ body{
   min-height: 100vh; /* Ensure each section takes up full screen height */
 }
 
+.esi{
+  height:300px !important;
+}
+
+.ams{
+  height:250px;
+}
+
+
+
+/* Section Styling */
+.testimonial-section {
+  padding: 0.1rem;
+  background: transparent; /* Transparent background to show video */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Water Drop Effect for Cards */
+.testimonial-card {
+  background-color: transparent; /* Transparent effect */
+  position: relative;
+  border-radius: 38% 62% 46% 54% / 46% 51% 49% 54%;
+  box-shadow: inset 20px 20px 20px rgba(0, 0, 0, 0.1),
+              25px 35px 20px rgba(0, 0, 0, 0.1),
+              25px 30px 30px rgba(0, 0, 0, 0.1),
+              inset -20px -20px 25px rgba(255, 255, 255, 0.5);
+  transition: border-radius 0.5s;
+  overflow: hidden;
+  animation: drop 2s infinite alternate ease-in-out;
+  text-align: center;
+}
+
+/* Water Drop Animation */
+@keyframes drop {
+  from {
+    border-radius: 38% 62% 46% 54% / 46% 51% 49% 54%;
+  }
+  to {
+    border-radius: 50%;
+  }
+}
+
+
+/* Water Droplet Bubbles */
+
+
+.testimonial-card::before {
+  top: 50px;
+  left: 75px;
+  width: 35px;
+  height: 35px;
+}
+
+.testimonial-card::after {
+  top: 90px;
+  left: 100px;
+  width: 15px;
+  height: 15px;
+}
+
+/* Button Styling */
+.contact-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.contact-btn:hover {
+  background-color: #0056b3;
+}
+
+.psi{
+  height:300px;
+}
+.tsi{
+  height:400px;
+}

@@ -6,13 +6,14 @@ const About = () => {
   return (
     <section className='h-screen'>
       <div className="flex justify-center items-center">
-        <TextAnimation bgColor="#000" fgColor="#fff">
+        {/* <TextAnimation bgColor="#000" fgColor="#fff">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">About Me</h2>
-        </TextAnimation>
+        </TextAnimation> */}
+        <img src='/about.png' alt='about' className='ams'/>
       </div>
       <Layout>
         {/* Right: About Me Content (Top and Centered Horizontally) */}
-        <div className="text-white flex flex-col items-center justify-start pt-20">
+        <div className="text-white flex flex-col items-center justify-start pt-0">
           <TextAnimation bgColor="#000" fgColor="#fff">
             <p className="text-lg md:text-xl leading-relaxed mb-4 text-center">
               Welcome to my underwater realm! I’m Kuruva Pavani, a passionate web  developer and designer.<br />

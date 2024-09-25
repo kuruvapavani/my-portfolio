@@ -96,7 +96,7 @@ const Projects = () => {
 
       ScrollTrigger.create({
         trigger: ".projects-section",
-        start: "top top",
+        start: "top 15%",
         pin: true,
         animation: projectTween,
         scrub: 1,
@@ -153,7 +153,7 @@ const Projects = () => {
   return (
     <section className="min-h-screen">
       <div className="flex justify-center items-center">
-        <img src="/projects.png" alt="projects" className="heading pt-10" />
+        <img src="/projects.png" alt="projects" className="heading pt-10 psi" />
       </div>
       <Layout>
         <section className="projects-section">

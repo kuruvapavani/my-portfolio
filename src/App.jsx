@@ -6,6 +6,7 @@ import Projects from './components/projects/Projects';
 import Skills from './components/skills/Skills';
 import RippleEffect from './components/RippleEffect';
 import ExperienceSection from './components/experience/Experience';
+import TestimonialCards from './components/testimonial/TestimonialCard';
 
 const App = () => {
   useEffect(() => {
@@ -49,6 +50,7 @@ const App = () => {
         <Skills />
         <Projects />
         <ExperienceSection />
+        <TestimonialCards />
       </>
     </RippleEffect>
   );
