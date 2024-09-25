@@ -43,40 +43,30 @@ const Projects = () => {
 
   useEffect(() => {
     const projectsElement = projectsRef.current;
-
-    // Calculate the horizontal scroll amount based on screen size
-    const getScrollAmount = () => {
-      if (window.innerWidth <= 768) {
-        return -(projectsElement.scrollWidth - window.innerWidth + 10); // For mobiles
-      } else {
-        return -(projectsElement.scrollWidth - window.innerWidth + 10000); // For desktops
-      }
-    };
-
-    const tween = gsap.to(projectsElement, {
-      x: getScrollAmount(),
-      duration: 3,
-      ease: "none",
+  
+    const totalScrollWidth = projectsElement.scrollWidth - 500;
+  
+    const projectTween = gsap.to(projectsElement, {
+      x: `-${totalScrollWidth}`,
+      ease: 'none',
     });
-
+    document.querySelector('.es').style.marginTop = `${totalScrollWidth-300}px`;
     ScrollTrigger.create({
-      trigger: projectsElement,
-      start: "top 20%", // Start when the top of the element hits 20% of the viewport height
-      end: () => `+=${getScrollAmount() * -1}`, // End when the total scroll amount has been reached
+      trigger: '.projects-section',
+      start: 'top top',
       pin: true,
-      animation: tween,
+      animation: projectTween,
       scrub: 1,
       invalidateOnRefresh: true,
-      markers: false,
-      onLeave: () => {
-        document.querySelector('.rest-section').style.display = 'block'; // Handle display after scrolling
-      },
     });
-
+  
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
+  
+  
+  
 
   return (
     <section className="h-screen">
@@ -85,7 +75,7 @@ const Projects = () => {
       </div>
       <Layout>
         <section className="projects-section">
-          <div className="projects-grid" ref={projectsRef}>
+          <div className="projects-grid" ref={projectsRef} >
             {projects.map((project, index) => (
               <ProjectCard
                 key={index}

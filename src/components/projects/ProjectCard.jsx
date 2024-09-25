@@ -2,7 +2,7 @@ import React from "react";
 
 const ProjectCard = ({ image, title, stack, demoLink, codeLink }) => {
   return (
-    <div className="project-card glass-effect">
+    <div className="project-card glass-effect z-index-10000">
       <img src={image} alt={title} className="project-image" />
       <div className="project-info">
         <h3 className="project-title">{title}</h3>
