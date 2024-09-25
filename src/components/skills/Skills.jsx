@@ -23,12 +23,12 @@ const skills = [
 
 const SkillsSection = () => {
   return (
-    <section className="h-screen">
+    <section className="min-h-screen">
       <div className="flex justify-center items-center">
         <img src="/skills.png" alt="skills" className="heading h-40" />
       </div>
       <Layout>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 z-1000">
+        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 z-1000">
           {skills.map((skill, index) => (
             <div className="relative group" key={index}>
               <div className="bubble mx-auto transition-transform duration-300 ease-in-out transform group-hover:scale-110">

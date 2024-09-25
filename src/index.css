@@ -288,6 +288,7 @@ html {
     gap: 0; /* Reset gap */
   }
 }
+
 body{
   overflow-x:hidden;
 }
@@ -306,7 +307,6 @@ body{
 
 .project-card {
   min-width: 300px;
-  background-color: #fff;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   border-radius: 8px;
@@ -357,7 +357,14 @@ body{
   will-change: transform;
   /* margin-top:100px !important; */
 }
-
+@media (max-width: 600px) {
+  .experience-wrapper {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+    gap: 0; /* Reset gap */
+  }
+}
 .experience-card {
   min-width: 300px;
   background-color: rgba(255, 255, 255, 0.3);
@@ -391,3 +398,10 @@ body{
   color: #555;
   margin-bottom: 1rem;
 }
+
+
+.projects-section,
+.experience-section {
+  min-height: 100vh; /* Ensure each section takes up full screen height */
+}
+
