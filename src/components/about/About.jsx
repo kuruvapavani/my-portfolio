@@ -1,15 +1,16 @@
 import React from 'react';
 import Layout from '../Layout';
 import TextAnimation from '../TextAnimation'; // Adjust the path as necessary
+import ImageReveal from '../ImageReveal';
 
 const About = () => {
   return (
-    <section className='h-screen'>
+    <section className='min-h-screen'>
       <div className="flex justify-center items-center">
         {/* <TextAnimation bgColor="#000" fgColor="#fff">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">About Me</h2>
         </TextAnimation> */}
-        <img src='/about.png' alt='about' className='ams'/>
+        <ImageReveal src='/about.png' alt='about' className='ams heading'/>
       </div>
       <Layout>
         {/* Right: About Me Content (Top and Centered Horizontally) */}

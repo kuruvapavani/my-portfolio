@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ExperienceCard from "./ExperienceCard";
 import Layout from "../Layout";
+import ImageReveal from "../ImageReveal";
 
 // Register GSAP ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -62,6 +63,8 @@ const experiences = [
     company: "Tech Company C",
     image: "path_to_image3.jpg",
     blogLink: "https://blog3.com",
+    startTime : "jan 2024",
+    endTime:"present"
   },
   // Add more experiences as needed
 ];
@@ -142,7 +145,7 @@ const ExperienceSection = () => {
   return (
     <section className="min-h-screen es">
       <div className="flex justify-center items-center">
-        <img src="/experience.png" alt="projects" className="heading pt-10 esi" />
+        <ImageReveal src="/experience.png" alt="projects" className="heading pt-10 esi" />
       </div>
       <section>
         <Layout>

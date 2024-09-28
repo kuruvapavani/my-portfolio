@@ -1,5 +1,6 @@
 import React from "react";
 import Layout from "../Layout";
+import ImageReveal from "../ImageReveal";
 
 const skills = [
   { src: "/html.png", alt: "HTML Skill", name: "HTML" },
@@ -25,7 +26,7 @@ const SkillsSection = () => {
   return (
     <section className="min-h-screen">
       <div className="flex justify-center items-center">
-        <img src="/skills.png" alt="skills" className="heading h-40" />
+        <ImageReveal src="/skills.png" alt="skills" className="heading h-40" />
       </div>
       <Layout>
         <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 z-1000">

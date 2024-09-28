@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Layout from "../Layout";
 import ProjectCard from "./ProjectCard";
+import ImageReveal from "../ImageReveal";
 
 const projects = [
   {
@@ -153,7 +154,7 @@ const Projects = () => {
   return (
     <section className="min-h-screen">
       <div className="flex justify-center items-center">
-        <img src="/projects.png" alt="projects" className="heading pt-10 psi" />
+        <ImageReveal src="/projects.png" alt="projects" className="heading pt-10 psi" />
       </div>
       <Layout>
         <section className="projects-section">

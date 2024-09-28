@@ -490,3 +490,90 @@ body{
 .tsi{
   height:400px;
 }
+
+@media (max-width: 600px) {
+  .tsi{
+    height:300px;
+  }
+  .cms{
+    margin-top:1500px !important;
+  }
+}
+
+.form-control {
+  margin: 20px 0 40px;
+  position: relative;
+  width: 300px;
+}
+
+.form-control input,
+.form-control textarea {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px #fff solid;
+  color: #fff;
+  display: block;
+  font-size: 1.2rem;
+  padding: 15px 0;
+  width: 100%;
+}
+
+.form-control input::placeholder,
+.form-control textarea::placeholder {
+  color: transparent;
+}
+
+.form-control input:focus,
+.form-control textarea:focus,
+.form-control input:valid,
+.form-control textarea:valid {
+  border-bottom-color: var(--highlight-color);
+  outline: 0;
+}
+
+.form-control label {
+  left: 0;
+  position: absolute;
+  top: 15px;
+}
+
+.form-control label span {
+  display: inline-block;
+  font-size: 1.2rem;
+  min-width: 5px;
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.form-control input:focus + label span,
+.form-control input:valid + label span,
+.form-control textarea:focus + label span,
+.form-control textarea:valid + label span {
+  color: var(--highlight-color);
+  transform: translateY(-30px);
+}
+
+.cms{
+  margin-top:500px;
+}
+
+/* Additional Footer Styles */
+footer {
+  position: relative;
+}
+
+.bubble1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px; /* Adjust size as needed */
+  height: 60px; /* Adjust size as needed */
+  border-radius: 50%; /* Makes the bubble round */
+  background-color: rgba(255, 255, 255, 0.1); /* Light background with transparency */
+  backdrop-filter: blur(5px); /* Optional: adds a blur effect */
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adds shadow for depth */
+}
+
+.bubble1:hover {
+  transform: scale(1.1); /* Scale up on hover */
+}

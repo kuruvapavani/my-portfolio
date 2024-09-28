@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Layout from "../Layout"; // Import the Layout component
+import ImageReveal from "../ImageReveal";
 
 // Register GSAP ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -94,7 +95,7 @@ const TestimonialCards = () => {
   return (
     <section className="min-h-screen ts" ref={testimonialRef}>
       <div className="flex justify-center items-center">
-        <img src="/test.png" alt="projects" className="heading pt-10 tsi" />
+        <ImageReveal src="/test.png" alt="projects" className="heading pt-10 tsi" />
       </div>
 
       <section className="testimonial-section">

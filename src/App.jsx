@@ -7,6 +7,8 @@ import Skills from './components/skills/Skills';
 import RippleEffect from './components/RippleEffect';
 import ExperienceSection from './components/experience/Experience';
 import TestimonialCards from './components/testimonial/TestimonialCard';
+import ContactMeSection from './components/contact/Contact';
+import Footer from './components/footer/Footer';
 
 const App = () => {
   useEffect(() => {
@@ -51,6 +53,8 @@ const App = () => {
         <Projects />
         <ExperienceSection />
         <TestimonialCards />
+        <ContactMeSection />
+        <Footer />
       </>
     </RippleEffect>
   );
