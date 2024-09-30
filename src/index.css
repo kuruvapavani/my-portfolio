@@ -406,11 +406,11 @@ body{
 }
 
 .esi{
-  height:300px !important;
+  height:100px !important;
 }
 
 .ams{
-  height:250px;
+  height:150px;
 }
 
 
@@ -576,4 +576,15 @@ footer {
 
 .bubble1:hover {
   transform: scale(1.1); /* Scale up on hover */
+}
+
+.login{
+  background-image:url('https://i.pinimg.com/736x/0b/14/5a/0b145a74e5cfad1ece12878dfae359d8.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login button{
+  margin-top:100px !important;
 }

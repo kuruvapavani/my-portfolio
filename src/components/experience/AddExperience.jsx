@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const AddTestimonial = () => {
+const AddExperience = () => {
   const labels = useRef([]);
   const [inputValues, setInputValues] = useState({
-    name: "",
-    email: "",
-    company: "",
-    text: "",
+    role: "",
+    companyName: "",
+    imageUrl: "",
+    url: "",
   });
 
   useEffect(() => {
@@ -32,115 +32,122 @@ const AddTestimonial = () => {
     }));
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle the form submission logic here (e.g., sending data to your backend)
-    console.log("Testimonial submitted:", inputValues);
-    // Clear the form after submission
-    setInputValues({
-      name: "",
-      email: "",
-      company: "",
-      text: "",
-    });
+
+    const experienceData = {
+      role: inputValues.role,
+      companyName: inputValues.companyName,
+      imageUrl: inputValues.imageUrl,
+      url: inputValues.url,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/api/experience", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(experienceData),
+      });
+      const data = await response.json();
+      console.log(data);
+      alert("Experience added successfully!");
+    } catch (error) {
+      console.error("Error adding experience:", error);
+    }
   };
 
   return (
-    <section className="min-h-screen">
+    <section className="min-h-screen login">
       <div className="flex items-center justify-center h-screen">
         <div className="bg-black bg-opacity-40 rounded-lg p-5 pt-10 pb-20 md:p-20">
-          <h2 className="text-white text-2xl mb-6">Add Testimonial</h2>
-          <form action="#" className="space-y-6" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="form-control relative">
               <input
                 type="text"
                 required
                 placeholder=" "
-                id="name"
-                value={inputValues.name}
+                id="role"
+                value={inputValues.role}
                 onChange={handleInputChange}
                 className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
               />
               <label
-                htmlFor="name"
+                htmlFor="role"
                 ref={(el) => (labels.current[0] = el)}
                 className={`absolute opacity-70 left-0 top-4 text-white transition-all duration-200 ${
-                  inputValues.name ? "top-[-1rem] text-lightblue" : ""
+                  inputValues.role ? "top-[-1rem] text-lightblue" : ""
                 }`}
               >
-                Name
+                Role Name
               </label>
             </div>
-
-            <div className="form-control relative">
-              <input
-                type="email"
-                required
-                placeholder=" "
-                id="email"
-                value={inputValues.email}
-                onChange={handleInputChange}
-                className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
-              />
-              <label
-                htmlFor="email"
-                ref={(el) => (labels.current[1] = el)}
-                className={`absolute opacity-70 left-0 top-4 text-white transition-all duration-200 ${
-                  inputValues.email ? "top-[-1rem] text-lightblue" : ""
-                }`}
-              >
-                Email
-              </label>
-            </div>
-
             <div className="form-control relative">
               <input
                 type="text"
                 required
                 placeholder=" "
-                id="company"
-                value={inputValues.company}
+                id="companyName"
+                value={inputValues.companyName}
                 onChange={handleInputChange}
                 className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
               />
               <label
-                htmlFor="company"
-                ref={(el) => (labels.current[2] = el)}
+                htmlFor="companyName"
+                ref={(el) => (labels.current[1] = el)}
                 className={`absolute opacity-70 left-0 top-4 text-white transition-all duration-200 ${
-                  inputValues.company ? "top-[-1rem] text-lightblue" : ""
+                  inputValues.companyName ? "top-[-1rem] text-lightblue" : ""
                 }`}
               >
-                Company
+                Company Name
               </label>
             </div>
-
             <div className="form-control relative">
-              <textarea
+              <input
+                type="text"
                 required
                 placeholder=" "
-                id="text"
-                value={inputValues.text}
+                id="imageUrl"
+                value={inputValues.imageUrl}
                 onChange={handleInputChange}
-                maxLength={250} // Limit the text length
                 className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
               />
               <label
-                htmlFor="text"
-                ref={(el) => (labels.current[3] = el)}
+                htmlFor="imageUrl"
+                ref={(el) => (labels.current[2] = el)}
                 className={`absolute opacity-70 left-0 top-4 text-white transition-all duration-200 ${
-                  inputValues.text ? "top-[-1rem] text-lightblue" : ""
+                  inputValues.imageUrl ? "top-[-1rem] text-lightblue" : ""
                 }`}
               >
-                Testimonial (max 250 characters)
+              Image URL
               </label>
             </div>
-
+            <div className="form-control relative">
+              <input
+                type="text"
+                required
+                placeholder=" "
+                id="url"
+                value={inputValues.url}
+                onChange={handleInputChange}
+                className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
+              />
+              <label
+                htmlFor="url"
+                ref={(el) => (labels.current[3] = el)}
+                className={`absolute opacity-70 left-0 top-4 text-white transition-all duration-200 ${
+                  inputValues.url ? "top-[-1rem] text-lightblue" : ""
+                }`}
+              >
+                Know More URL
+              </label>
+            </div>
             <button
               type="submit"
               className="relative w-full bg-lightblue bg-blue-700 text-white py-2 rounded transition duration-300 ease-in-out transform hover:scale-105 hover:bg-opacity-90 active:scale-95"
             >
-              <span className="relative z-10">Submit Testimonial</span>
+              <span className="relative z-10">Add Experience</span>
               <span className="absolute inset-0 bg-lightblue rounded transition duration-300 transform scale-0 hover:scale-110" />
             </button>
           </form>
@@ -150,4 +157,4 @@ const AddTestimonial = () => {
   );
 };
 
-export default AddTestimonial;
+export default AddExperience;

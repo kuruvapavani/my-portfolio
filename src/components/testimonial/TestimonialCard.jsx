@@ -12,12 +12,12 @@ const testimonials = [
     name: "John Doe",
     email: "john.doe@example.com",
     company: "Tech Solutions",
-    text: "This is a fantastic product! It has really improved our workflow.",
+    text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p",
   },{
     name: "John Doe",
     email: "john.doe@example.com",
     company: "Tech Solutions",
-    text: "This is a fantastic product! It has really improved our workflow.",
+    text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.",
   },{
     name: "John Doe",
     email: "john.doe@example.com",
@@ -102,11 +102,10 @@ const TestimonialCards = () => {
         {/* Keep the Layout inside the testimonial section without changing its position */}
         <div className="flex justify-center items-center">
           <Layout>
-            <div className="testimonial-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 justify-items-center gap-x-64 gap-y-12">
+            <div className="testimonial-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 justify-items-center gap-x-80 gap-y-12">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="testimonial-card drop w-80 h-80 p-8 text-center shadow-xl">
+                <div key={index} className="testimonial-card drop w-96 h-96 p-8 text-center shadow-xl">
                   <h2 className="text-2xl font-bold mb-4">{testimonial.name}</h2>
-                  <p className="email text-sm text-white mb-2">{testimonial.email}</p>
                   <p className="company text-sm text-white mb-4">{testimonial.company}</p>
                   <p className="mb-6">{testimonial.text}</p>
                   <a href={`mailto:${testimonial.email}`} className="contact-btn bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
