@@ -9,6 +9,7 @@ import ExperienceSection from './components/experience/Experience';
 import TestimonialCards from './components/testimonial/TestimonialCard';
 import ContactMeSection from './components/contact/Contact';
 import Footer from './components/footer/Footer';
+import Navbar from './components/nav/Nav';
 
 const App = () => {
   useEffect(() => {
@@ -47,6 +48,7 @@ const App = () => {
 
       {/* Wrapping each section in Layout */}
       <>
+        <Navbar />
         <Hero />
         <About />
         <Skills />

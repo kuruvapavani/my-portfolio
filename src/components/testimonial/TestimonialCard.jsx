@@ -93,7 +93,7 @@ const TestimonialCards = () => {
   }, []);
 
   return (
-    <section className="min-h-screen ts" ref={testimonialRef}>
+    <section className="min-h-screen ts" ref={testimonialRef} id="testimonials">
       <div className="flex justify-center items-center">
         <ImageReveal src="/test.png" alt="projects" className="heading pt-10 tsi" />
       </div>

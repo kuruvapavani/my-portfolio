@@ -24,7 +24,7 @@ const skills = [
 
 const SkillsSection = () => {
   return (
-    <section className="min-h-screen">
+    <section className="min-h-screen" id="skills">
       <div className="flex justify-center items-center">
         <ImageReveal src="/skills.png" alt="skills" className="heading h-40" />
       </div>

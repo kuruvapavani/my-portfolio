@@ -5,7 +5,7 @@ import ImageReveal from '../ImageReveal';
 
 const About = () => {
   return (
-    <section className='min-h-screen'>
+    <section className='min-h-screen' id='about'>
       <div className="flex justify-center items-center">
         {/* <TextAnimation bgColor="#000" fgColor="#fff">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">About Me</h2>

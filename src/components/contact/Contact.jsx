@@ -34,7 +34,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section className='min-h-screen cms'>
+    <section className='min-h-screen cms' id='contact'>
       <div className="flex justify-center items-center">
         <ImageReveal src='/contact.png' alt='about' className='ams heading' />
       </div> 
