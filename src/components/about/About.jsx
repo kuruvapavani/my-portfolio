@@ -10,7 +10,7 @@ const About = () => {
         {/* <TextAnimation bgColor="#000" fgColor="#fff">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">About Me</h2>
         </TextAnimation> */}
-        <ImageReveal src='/about.png' alt='about' className='ams heading'/>
+        <ImageReveal src='/about.png' alt='about' cls={"ams"}/>
       </div>
       <Layout>
         {/* Right: About Me Content (Top and Centered Horizontally) */}

@@ -145,7 +145,7 @@ const ExperienceSection = () => {
   return (
     <section className="min-h-screen es" id="experience">
       <div className="flex justify-center items-center">
-        <ImageReveal src="/experience.png" alt="projects" className="heading pt-10 esi" />
+        <ImageReveal src="/experience.png" alt="projects" cls={"esi pt-10"}/>
       </div>
       <section>
         <Layout>

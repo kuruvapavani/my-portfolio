@@ -26,7 +26,7 @@ const SkillsSection = () => {
   return (
     <section className="min-h-screen" id="skills">
       <div className="flex justify-center items-center">
-        <ImageReveal src="/skills.png" alt="skills" className="heading h-40" />
+        <ImageReveal src="/skills.png" alt="skills" cls={"ssi"} />
       </div>
       <Layout>
         <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 z-1000">

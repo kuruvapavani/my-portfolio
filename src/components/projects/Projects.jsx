@@ -154,7 +154,7 @@ const Projects = () => {
   return (
     <section className="min-h-screen" id="projects">
       <div className="flex justify-center items-center">
-        <ImageReveal src="/projects.png" alt="projects" className="heading pt-10 psi" />
+        <ImageReveal src="/projects.png" alt="projects" cls={"psi pt-10"} />
       </div>
       <Layout>
         <section className="projects-section">

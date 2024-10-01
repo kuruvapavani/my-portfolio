@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from './components/Layout';
 import Hero from './components/hero/Hero';
 import About from './components/about/About';
@@ -10,8 +10,11 @@ import TestimonialCards from './components/testimonial/TestimonialCard';
 import ContactMeSection from './components/contact/Contact';
 import Footer from './components/footer/Footer';
 import Navbar from './components/nav/Nav';
+import Loading from './components/loading/Loading';
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const video = document.getElementById('background-video');
     let isScrolling;
@@ -27,6 +30,16 @@ const App = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
+
+    // Simulate loading
+    const loadData = () => {
+      // Simulate a data fetch with a timeout
+      setTimeout(() => {
+        setLoading(false); // Set loading to false after data is loaded
+      }, 3000); // Adjust time as needed
+    };
+
+    loadData();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -46,18 +59,22 @@ const App = () => {
         </video>
       </div>
 
-      {/* Wrapping each section in Layout */}
-      <>
-        <Navbar />
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <ExperienceSection />
-        <TestimonialCards />
-        <ContactMeSection />
-        <Footer />
-      </>
+      {/* Conditional rendering based on loading state */}
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <Navbar />
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <ExperienceSection />
+          <TestimonialCards />
+          <ContactMeSection />
+          <Footer />
+        </>
+      )}
     </RippleEffect>
   );
 };
