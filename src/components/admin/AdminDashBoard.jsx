@@ -1,57 +1,57 @@
-import React, { useState } from "react";
-import AddExperience from "../experience/AddExperience";
-import AddProject from "../projects/AddProject";
-import AddSkill from "../skills/AddSkill";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import AdminProjects from "./AdminProjects";
+import AddAbout from "../about/AddAbout";
+import { Tabs } from "antd";
+const { TabPane } = Tabs;
+import AddHero from "../hero/AddHero";
+import AdminSkills from "./AdminSkills";
+import AdminExperience from "./AdminExperience";
+import AdminTestimonials from "./AdminTestimonials";
 
 const AdminDashboard = () => {
-  const [activeComponent, setActiveComponent] = useState(null);
+  const navigate = useNavigate();
 
-  // Mock login status - replace with actual login logic
-  const isLoggedIn = true; // Change this based on your authentication logic
-
-  const renderComponent = () => {
-    switch (activeComponent) {
-      case "skill":
-        return <AddSkill />;
-      case "project":
-        return <AddProject />;
-      case "experience":
-        return <AddExperience />;
-      default:
-        return null;
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      navigate("/login"); // Redirect to login if not authenticated
     }
+  }, [navigate]);
+  
+
+  // Optionally, render null or a loading state until the check is complete
+  const token = localStorage.getItem("authToken");
+  if (!token) {
+    return null; // Or you can return a loading spinner
+  }
+
+  const onChange = (key) => {
+    console.log(`Selected tab: ${key}`);
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-800 p-5">
-      {isLoggedIn ? (
-        <>
-          <h1 className="text-white text-3xl mb-6">Admin Dashboard</h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl">
-            <div
-              className="bg-blue-700 p-5 rounded-lg shadow-lg cursor-pointer transition-transform duration-300 transform hover:scale-105"
-              onClick={() => setActiveComponent("skill")}
-            >
-              <h2 className="text-white text-xl">Add Skill</h2>
-            </div>
-            <div
-              className="bg-green-700 p-5 rounded-lg shadow-lg cursor-pointer transition-transform duration-300 transform hover:scale-105"
-              onClick={() => setActiveComponent("project")}
-            >
-              <h2 className="text-white text-xl">Add Project</h2>
-            </div>
-            <div
-              className="bg-red-700 p-5 rounded-lg shadow-lg cursor-pointer transition-transform duration-300 transform hover:scale-105"
-              onClick={() => setActiveComponent("experience")}
-            >
-              <h2 className="text-white text-xl">Add Experience</h2>
-            </div>
-          </div>
-          <div className="mt-10 w-full">{renderComponent()}</div>
-        </>
-      ) : (
-        <h2 className="text-white text-2xl">Please log in to access this section.</h2>
-      )}
+    <div className="min-h-screen flex flex-col items-center justify-center p-5 text-white">
+      <Tabs defaultActiveKey="1" onChange={onChange}>
+        <TabPane tab="Intro" key="1">
+          <AddHero />
+        </TabPane>
+        <TabPane tab="About" key="2">
+          <AddAbout />
+        </TabPane>
+        <TabPane tab="Skills" key="3">
+          <AdminSkills />
+        </TabPane>
+        <TabPane tab="Projects" key="4">
+          <AdminProjects />
+        </TabPane>
+        <TabPane tab="Experience" key="5">
+          <AdminExperience />
+        </TabPane>
+        <TabPane tab="Testimonials" key="6">
+          <AdminTestimonials />
+        </TabPane>
+      </Tabs>
     </div>
   );
 };

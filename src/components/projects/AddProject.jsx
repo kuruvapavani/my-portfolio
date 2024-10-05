@@ -61,7 +61,7 @@ const AddProject = () => {
   };
 
   return (
-    <section className="min-h-screen login">
+    <section className="min-h-screen">
       <div className="flex items-center justify-center min-h-screen">
         <div className="bg-black bg-opacity-40 rounded-lg p-2 pt-10 pb-20 md:p-10 md:px-20">
           <form onSubmit={handleSubmit} className="space-y-6">

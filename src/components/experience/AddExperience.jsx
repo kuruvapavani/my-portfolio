@@ -59,7 +59,7 @@ const AddExperience = () => {
   };
 
   return (
-    <section className="min-h-screen login">
+    <section className="min-h-screen">
       <div className="flex items-center justify-center h-screen">
         <div className="bg-black bg-opacity-40 rounded-lg p-5 pt-10 pb-20 md:p-20">
           <form onSubmit={handleSubmit} className="space-y-6">

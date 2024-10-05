@@ -1,124 +1,104 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import Logo from './logo.svg';
+import React, { useState, useEffect } from "react";
+import gsap from "gsap";
+import Logo from "./logo.svg";
+import Hero from "../hero/Hero";
 
-const Navbar = () => {
+const Nav = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef(null);
-  const linksRef = useRef(null);
 
-  const toggleMenu = () => {
-    setIsOpen((prevState) => !prevState);
+  const getVpdr = () => {
+    const vph = Math.pow(document.documentElement.offsetHeight, 2);
+    const vpw = Math.pow(document.documentElement.offsetWidth, 2);
+    const vpd = Math.sqrt(vph + vpw);
+    const circleWidth = document.getElementById("bg-circle").clientWidth;
+    return (vpd * 2) / circleWidth;
   };
 
-  const closeMenu = () => {
-    setIsOpen(false);
+  const openNavbar = () => {
+    const openTimeline = gsap.timeline();
+    openTimeline.to(".navbar", 0, { display: "flex" });
+    openTimeline.to("#bg-circle", 0.5, { // Reduce the time from 1.5s to 0.5s
+      scale: getVpdr(),
+      ease: "expo.inOut",
+    });
+    openTimeline.fromTo(
+      ".navbar ul li",
+      { y: 25, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.05, delay: 0.3 } // Reduced stagger and delay
+    );
+  };
+  
+  const closeNavbar = () => {
+    const closeTimeline = gsap.timeline();
+    closeTimeline.to(".navbar ul li", {
+      y: 25,
+      opacity: 0,
+      stagger: -0.05, // Reduced stagger
+      delay: 0.1, // Reduced delay
+    });
+    closeTimeline.to("#bg-circle", 0.5, { // Reduce time from 1s to 0.5s
+      scale: 0,
+      ease: "expo.inOut",
+      delay: -0.2, // Reduced negative delay for faster transitions
+    });
+    closeTimeline.to(".navbar", 0, { display: "none" });
+
+  };
+  
+
+  const toggleNavbar = () => {
+    if (isOpen) {
+      closeNavbar();
+    } else {
+      openNavbar();
+    }
+    setIsOpen(!isOpen);
   };
 
   useEffect(() => {
-    if (isOpen) {
-      // Prevent scrolling when the menu is open
-      document.body.style.overflow = 'hidden';
-
-      // Animate menu
-      gsap.to(menuRef.current, {
-        duration: 0.6,
-        y: 0,
-        opacity: 1,
-        ease: 'power3.out',
-      });
-
-      gsap.fromTo(
-        linksRef.current.children,
-        { y: 40, opacity: 0 },
-        {
-          duration: 0.8,
-          y: 0,
-          opacity: 1,
-          stagger: 0.15,
-          ease: 'power3.out',
-        }
-      );
-    } else {
-      // Re-enable scrolling when the menu is closed
-      document.body.style.overflow = 'auto';
-
-      // Animate closing of menu
-      gsap.to(menuRef.current, {
-        duration: 0.6,
-        y: '100%',
-        opacity: 0,
-        ease: 'power3.in',
-      });
-
-      gsap.to(linksRef.current.children, {
-        duration: 0.5,
-        y: 40,
-        opacity: 0,
-        stagger: 0.1,
-        ease: 'power3.in',
-      });
-    }
-
-    // Clean up by enabling scroll when component is unmounted
-    return () => {
-      document.body.style.overflow = 'auto';
+    const handleResize = () => {
+      if (isOpen) {
+        gsap.to("#bg-circle", 1, {
+          scale: getVpdr(),
+          ease: "expo.inOut",
+        });
+      }
     };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isOpen]);
 
   return (
-    <nav className={`fixed top-0 left-0 w-full text-white nav ${isOpen ? 'z-50' : ''}`}>
-      <div className="flex justify-between items-center p-4 bg-glass">
-        {/* Logo on the left side */}
-        <a href="#">
-          <img src={Logo} alt="logo" className="logo" />
-        </a>
+    <div id="wrapper">
+      {/* Logo added at the top-left */}
+      <img className="logo" src={Logo} />
 
-        {/* Hamburger menu button */}
-        <button
-          onClick={toggleMenu}
-          className={`menu-button flex flex-col justify-center items-center relative z-20 ${isOpen ? 'open' : ''}`}
-          aria-expanded={isOpen}
-          aria-controls="menu"
-          aria-label="Menu button"
-        >
-          <span className="menu-line"></span>
-          <span className="menu-line"></span>
-          <span className="menu-line"></span>
-        </button>
-      </div>
+      <button className={`navbar-toggle ${isOpen ? "active" : ""}`} id="toggle" type="button" onClick={toggleNavbar}>
+        <svg viewBox="0 0 100 100" width="80">
+          <path className="line top" d="m 30,33 h 40 c 0,0 9.044436,-0.654587 9.044436,-8.508902 0,-7.854315 -8.024349,-11.958003 -14.89975,-10.85914 -6.875401,1.098863 -13.637059,4.171617 -13.637059,16.368042 v 40" />
+          <path className="line middle" d="m 30,50 h 40" />
+          <path className="line bottom" d="m 30,67 h 40 c 12.796276,0 15.357889,-11.717785 15.357889,-26.851538 0,-15.133752 -4.786586,-27.274118 -16.667516,-27.274118 -11.88093,0 -18.499247,6.994427 -18.435284,17.125656 l 0.252538,40" />
+        </svg>
+      </button>
 
-      {/* Full-screen glass background for the menu (sliding from bottom) */}
-      <div
-        ref={menuRef}
-        className={`site-nav__menu fixed bottom-0 left-0 w-full h-screen flex flex-col items-center justify-center bg-glass backdrop-blur-lg transform transition-opacity transition-transform duration-700 ease-in-out ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
-      >
-        <ul ref={linksRef} className="text-center">
-          <li className="py-4 text-2xl text-white hover:text-blue-400" onClick={closeMenu}>
-            <a href="#home">Home</a>
-          </li>
-          <li className="py-4 text-2xl text-white hover:text-blue-400" onClick={closeMenu}>
-            <a href="#about">About</a>
-          </li>
-          <li className="py-4 text-2xl text-white hover:text-blue-400" onClick={closeMenu}>
-            <a href="#skills">Skills</a>
-          </li>
-          <li className="py-4 text-2xl text-white hover:text-blue-400" onClick={closeMenu}>
-            <a href="#projects">Projects</a>
-          </li>
-          <li className="py-4 text-2xl text-white hover:text-blue-400" onClick={closeMenu}>
-            <a href="#experience">Experience</a>
-          </li>
-          <li className="py-4 text-2xl text-white hover:text-blue-400" onClick={closeMenu}>
-            <a href="#testimonials">Testimonials</a>
-          </li>
-          <li className="py-4 text-2xl text-white hover:text-blue-400" onClick={closeMenu}>
-            <a href="#contact">Contact</a>
-          </li>
+      <div className={`navbar ${isOpen ? 'open' : ''}`}>
+        <ul>
+          <li><a data-text="1" href="#">Home</a></li>
+          <li><a data-text="2" href="#">Our Team</a></li>
+          <li><a data-text="3" href="#">Projects</a></li>
+          <li><a data-text="4" href="#">Contact</a></li>
         </ul>
       </div>
-    </nav>
+
+      <div id="bg-circle"></div>
+
+      {/* Hero Section comes right after the navbar */}
+      <section className="hero-section">
+      <Hero  data={data}/>
+      </section>
+    </div>
   );
 };
 
-export default Navbar;
+export default Nav;

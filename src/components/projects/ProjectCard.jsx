@@ -1,5 +1,4 @@
 import React from "react";
-
 const ProjectCard = ({ image, title, stack, demoLink, codeLink }) => {
   return (
     <div className="project-card z-index-10000 bg-white/30 backdrop-blur-md shadow-lg rounded-lg p-6 m-4 max-w-sm mx-auto transition-transform transform hover:scale-105">
@@ -16,6 +15,7 @@ const ProjectCard = ({ image, title, stack, demoLink, codeLink }) => {
           </a>
         </div>
       </div>
+      
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Swal from "sweetalert2"; // Import SweetAlert
 
 const AddTestimonial = () => {
   const labels = useRef([]);
@@ -8,6 +9,26 @@ const AddTestimonial = () => {
     company: "",
     text: "",
   });
+  const [testimonials, setTestimonials] = useState([]);
+
+  useEffect(() => {
+    const fetchTestimonialsData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/get-testimonials`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setTestimonials(data.testimonials);
+      } catch (error) {
+        console.error("Error fetching testimonials data:", error);
+      }
+    };
+
+    fetchTestimonialsData();
+  }, []);
 
   useEffect(() => {
     const delayUnit = 50;
@@ -17,26 +38,56 @@ const AddTestimonial = () => {
         .split("")
         .map(
           (char, idx) =>
-            `<span style="transition-delay: ${idx * delayUnit}ms">${char}</span>`
+            `<span style="transition-delay: ${
+              idx * delayUnit
+            }ms">${char}</span>`
         )
         .join("");
     });
   }, []);
 
   // Handle input change
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setInputValues((prevValues) => ({
-      ...prevValues,
-      [id]: value,
-    }));
-  };
+  // const handleInputChange = (e) => {
+  //   const { id, value } = e.target;
+  //   setInputValues((prevValues) => ({
+  //     ...prevValues,
+  //     [id]: value,
+  //   }));
+  // };
 
+  const handleInputChange = (e) => {
+    setInputValues({
+      ...inputValues,
+      [e.target.name]: e.target.value,
+    });
+  };
   // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle the form submission logic here (e.g., sending data to your backend)
-    console.log("Testimonial submitted:", inputValues);
+  // In your AddTestimonial component
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent form submission
+    let message = "";
+    console.log("Input Values:", inputValues); // Log input values
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/add-testimonial",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(inputValues),
+        }
+      );
+      const data = await response.json();
+      if (data.success) {
+        setTestimonials([...testimonials, data.data]);
+        message = "New testimonial added successfully!";
+      }
+      Swal.fire("Success", message, "success");
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire("Error", "An error occurred. Please try again.", "error");
+    }
     // Clear the form after submission
     setInputValues({
       name: "",
@@ -51,13 +102,15 @@ const AddTestimonial = () => {
       <div className="flex items-center justify-center h-screen">
         <div className="bg-black bg-opacity-40 rounded-lg p-5 pt-10 pb-20 md:p-20">
           <h2 className="text-white text-2xl mb-6">Add Testimonial</h2>
-          <form action="#" className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Name input */}
             <div className="form-control relative">
               <input
                 type="text"
                 required
                 placeholder=" "
                 id="name"
+                name="name" // Add name attribute
                 value={inputValues.name}
                 onChange={handleInputChange}
                 className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
@@ -73,12 +126,14 @@ const AddTestimonial = () => {
               </label>
             </div>
 
+            {/* Email input */}
             <div className="form-control relative">
               <input
                 type="email"
                 required
                 placeholder=" "
                 id="email"
+                name="email" // Add name attribute
                 value={inputValues.email}
                 onChange={handleInputChange}
                 className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
@@ -94,12 +149,14 @@ const AddTestimonial = () => {
               </label>
             </div>
 
+            {/* Company input */}
             <div className="form-control relative">
               <input
                 type="text"
                 required
                 placeholder=" "
                 id="company"
+                name="company" // Add name attribute
                 value={inputValues.company}
                 onChange={handleInputChange}
                 className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
@@ -115,11 +172,13 @@ const AddTestimonial = () => {
               </label>
             </div>
 
+            {/* Testimonial textarea */}
             <div className="form-control relative">
               <textarea
                 required
                 placeholder=" "
                 id="text"
+                name="text" // Add name attribute
                 value={inputValues.text}
                 onChange={handleInputChange}
                 maxLength={250} // Limit the text length
@@ -136,6 +195,7 @@ const AddTestimonial = () => {
               </label>
             </div>
 
+            {/* Submit button */}
             <button
               type="submit"
               className="relative w-full bg-lightblue bg-blue-700 text-white py-2 rounded transition duration-300 ease-in-out transform hover:scale-105 hover:bg-opacity-90 active:scale-95"

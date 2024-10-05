@@ -1,27 +1,96 @@
-import React from 'react';
-import Nav from '../nav/Nav';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import Layout from '../Layout';
 
-const Hero = () => {
+gsap.registerPlugin(ScrollTrigger);
+
+const Hero = ({ data }) => {
+  const headingRef = useRef(null);
+  const subTextRef = useRef(null);
+  const mainTextRef = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo(
+      headingRef.current,
+      { y: 150, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 90%',
+          end: 'top 30%',
+          scrub: true, // smooth parallax scrolling
+        },
+      }
+    );
+
+    gsap.fromTo(
+      subTextRef.current,
+      { y: 150, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: subTextRef.current,
+          start: 'top 85%',
+          end: 'top 30%',
+          scrub: true, // smooth parallax scrolling
+        },
+      }
+    );
+
+    gsap.fromTo(
+      mainTextRef.current,
+      { y: 150, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: mainTextRef.current,
+          start: 'top 80%',
+          end: 'top 30%',
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
   return (
     <Layout>
-    <div className="text-white p-2 space-y-2 flex flex-col justify-center items-center h-full">
-        <h1 className="text-l md:text-6xl font-bold font-exo">
-          Welcome to My World Beneath the Waves
+      <div className="text-white p-4 flex flex-col justify-center items-center min-h-screen">
+        {/* Heading */}
+        <h1 
+          ref={headingRef} 
+          className="text-4xl md:text-7xl font-bold w-full text-center leading-tight tracking-tight"
+        >
+          {data[0].headingText}
         </h1>
-        <p className="text-sm md:text-2xl font-exo">
-          Scroll down slowly to dive deeper into my world.
+
+        {/* Subtext */}
+        <p 
+          ref={subTextRef} 
+          className="text-sm w-full md:text-xl max-w-2xl  font-exo mt-4 text-center max-w-3xl leading-snug tracking-wide"
+        >
+          {data[0].subText}
         </p>
-        <div className="text-sm md:text-xl max-w-2xl leading-relaxed font-exo">
-          <p>
-            Hi, I'm <strong>Kuruva Pavani</strong>, a passionate <strong>Web Developer</strong> and <strong>MERN Stack Developer</strong>, currently expanding my expertise by learning <strong>Full Stack with Java</strong>.
-          </p>
-          <p>
-            Just like the ocean, my journey in development is deep and ever-expanding. As you explore, you'll discover my skills, projects, and passion for code. The deeper you go, the more there is to uncover.
-          </p>
+
+        {/* Main text */}
+        <div 
+          ref={mainTextRef} 
+          className="text-base md:text-2xl leading-relaxed font-exo mt-6 text-center tracking-wide"
+        >
+          {data[0].mainText}
         </div>
       </div>
-      </Layout>
+    </Layout>
   );
 };
 

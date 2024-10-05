@@ -9,26 +9,26 @@ const TextAnimation = ({ children, bgColor, fgColor }) => {
   const textRef = useRef();
 
   useEffect(() => {
-    const text = new SplitType(textRef.current, { types: 'chars' });
-
+    const text = new SplitType(textRef.current, { types: 'words' });
+  
+    // Commenting out the gsap animation to test text rendering behavior
     gsap.fromTo(
-      text.chars,
+      text.words, // Animate words instead of characters
       { color: bgColor },
       {
         color: fgColor,
-        duration: 20, // Longer duration to make the animation slower
-        stagger: 2,   // More delay between character animations
+        duration: 20,
+        stagger: 2,
         scrollTrigger: {
           trigger: textRef.current,
-          start: 'top 80%', // Start the animation earlier
-          end: 'top 10%',   // End the animation later for a longer scroll range
-          scrub: 1,         // Scrub the animation slowly with the scroll
+          start: 'top 80%',
+          end: 'top 10%',
+          scrub: 1,
           toggleActions: 'play play reverse reverse',
         },
       }
     );
-    
-
+  
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };

@@ -1,22 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import Layout from './components/Layout';
-import Hero from './components/hero/Hero';
-import About from './components/about/About';
-import Projects from './components/projects/Projects';
-import Skills from './components/skills/Skills';
-import RippleEffect from './components/RippleEffect';
-import ExperienceSection from './components/experience/Experience';
-import TestimonialCards from './components/testimonial/TestimonialCard';
-import ContactMeSection from './components/contact/Contact';
-import Footer from './components/footer/Footer';
-import Navbar from './components/nav/Nav';
-import Loading from './components/loading/Loading';
-
+import React, { useEffect, useState } from "react";
+import Layout from "./components/Layout";
+import Hero from "./components/hero/Hero";
+import About from "./components/about/About";
+import Projects from "./components/projects/Projects";
+import Skills from "./components/skills/Skills";
+import RippleEffect from "./components/RippleEffect";
+import ExperienceSection from "./components/experience/Experience";
+import TestimonialCards from "./components/testimonial/TestimonialCard";
+import ContactMeSection from "./components/contact/Contact";
+import Footer from "./components/footer/Footer";
+import Loading from "./components/loading/Loading";
+import axios from "axios";
+import Nav from "./components/nav/Nav";
 const App = () => {
   const [loading, setLoading] = useState(true);
+  const [portfolioData, setPortfolioData] = useState(null); // State to store the fetched data
+
+  const getData = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/get-portfolio-data");
+      setPortfolioData(response.data); // Store the fetched data in the state
+    } catch (error) {
+      console.log(error);
+      setLoading(false); // Even on error, we stop showing the loading component
+    }
+  }
+  useEffect(() => {
+    getData();
+  }, []);
 
   useEffect(() => {
-    const video = document.getElementById('background-video');
+    const video = document.getElementById("background-video");
     let isScrolling;
 
     const handleScroll = () => {
@@ -29,7 +43,7 @@ const App = () => {
       }, 100);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Simulate loading
     const loadData = () => {
@@ -42,7 +56,7 @@ const App = () => {
     loadData();
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -64,14 +78,13 @@ const App = () => {
         <Loading />
       ) : (
         <>
-          <Navbar />
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <ExperienceSection />
-          <TestimonialCards />
-          <ContactMeSection />
+          <Nav data={portfolioData.intro}/>
+          <About data={portfolioData.about} />
+          <Skills data={portfolioData.skills} />
+          <Projects data={portfolioData.projects} />
+          <ExperienceSection data={portfolioData.experience} />
+          <TestimonialCards data={portfolioData.testimonials} />
+          <ContactMeSection data={portfolioData.contact} />
           <Footer />
         </>
       )}

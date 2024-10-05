@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ExperienceCard from "./ExperienceCard";
@@ -8,114 +8,64 @@ import ImageReveal from "../ImageReveal";
 // Register GSAP ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-// Experience data
-const experiences = [
-  {
-    position: "Software Engineer",
-    company: "Tech Company A",
-    image: "path_to_image1.jpg",
-    blogLink: "https://blog1.com",
-  },
-  {
-    position: "Frontend Developer",
-    company: "Tech Company B",
-    image: "path_to_image2.jpg",
-    blogLink: "https://blog2.com",
-  },
-  {
-    position: "Backend Developer",
-    company: "Tech Company C",
-    image: "path_to_image3.jpg",
-    blogLink: "https://blog3.com",
-  },
-  {
-    position: "Software Engineer",
-    company: "Tech Company A",
-    image: "path_to_image1.jpg",
-    blogLink: "https://blog1.com",
-  },
-  {
-    position: "Frontend Developer",
-    company: "Tech Company B",
-    image: "path_to_image2.jpg",
-    blogLink: "https://blog2.com",
-  },
-  {
-    position: "Backend Developer",
-    company: "Tech Company C",
-    image: "path_to_image3.jpg",
-    blogLink: "https://blog3.com",
-  },
-  {
-    position: "Software Engineer",
-    company: "Tech Company A",
-    image: "path_to_image1.jpg",
-    blogLink: "https://blog1.com",
-  },
-  {
-    position: "Frontend Developer",
-    company: "Tech Company B",
-    image: "path_to_image2.jpg",
-    blogLink: "https://blog2.com",
-  },
-  {
-    position: "Backend Developer",
-    company: "Tech Company C",
-    image: "path_to_image3.jpg",
-    blogLink: "https://blog3.com",
-    startTime : "jan 2024",
-    endTime:"present"
-  },
-  // Add more experiences as needed
-];
-
-const ExperienceSection = () => {
+const ExperienceSection = (data) => {
   const experienceRef = useRef(null);
+  const experiences = [...(data.data)];
 
   useEffect(() => {
     const experienceElement = experienceRef.current;
-
     const mm = gsap.matchMedia();
+
+    const updateMargin = () => {
+      const experienceHeight = experienceElement.getBoundingClientRect().height;
+      const totalScrollWidth = experienceElement.scrollWidth - 500;
+      const dynamicMargin = totalScrollWidth - experienceHeight;
+      document.querySelector('.ts').style.marginTop = `${experienceElement.scrollWidth - (200 * experiences.length) + 400}px`;
+    };
 
     // Scroll-triggered animation for laptops and larger screens
     mm.add("(min-width: 1024px)", () => {
+      
+      const dynamicMargin = experienceElement.scrollWidth + 2800;
+      document.querySelector('.ts').style.marginTop = `${dynamicMargin}px`;
       const totalScrollWidth = experienceElement.scrollWidth - 500;
-      document.querySelector('.ts').style.marginTop = `${experienceElement.scrollWidth-2300}px`;
       const experienceTween = gsap.to(experienceElement, {
         x: `-${totalScrollWidth}`, // Scroll distance based on the total width
         ease: "none",
+        onComplete: updateMargin, // Update margin after animation completes
       });
 
       ScrollTrigger.create({
         trigger: ".experience-section",
-        start: "top 20%", // End based on total scroll width
+        start: "top 20%",
         pin: true,
         animation: experienceTween,
         scrub: 1,
         invalidateOnRefresh: true,
       });
 
+      updateMargin(); // Initial margin update
+
       return () => {
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     });
 
-    // Stack card animation for mobile and tablets
+    // Stack card animation for tablets
     mm.add("(max-width: 1024px)", () => {
       const items = gsap.utils.toArray(".experience-card");
-      document.querySelector('.ts').style.marginTop = `${experienceElement.scrollWidth+2800}px`;
-      items.forEach((item, index) => {
+      document.querySelector('.ts').style.marginTop = `200px`;
+
+      items.forEach((item) => {
         let tl = gsap.timeline({
           scrollTrigger: {
             trigger: item,
             start: "top 80%", // Trigger animation when card is scrolled into view
             end: "bottom top", // End when the card leaves the view
             scrub: true,
-            markers: false, // Set true if you want to debug
           },
         });
 
-        // Stack animation: adjust scale and opacity based on scroll
         tl.fromTo(
           item,
           {
@@ -136,16 +86,21 @@ const ExperienceSection = () => {
       };
     });
 
+    // Add margin only for mobile views
+    mm.add("(max-width: 768px)", () => {
+      document.querySelector('.ts').style.marginTop = '600px'; // Adjust margin-top specifically for mobile views
+    });
+
     // Cleanup on component unmount
     return () => {
       mm.revert();
     };
-  }, []);
+  }, [experiences.length]);
 
   return (
     <section className="min-h-screen es" id="experience">
       <div className="flex justify-center items-center">
-        <ImageReveal src="/experience.png" alt="projects" cls={"esi pt-10"}/>
+        <ImageReveal src="/experience.png" alt="projects" cls={"esi pt-10"} />
       </div>
       <section>
         <Layout>

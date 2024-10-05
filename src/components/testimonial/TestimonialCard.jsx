@@ -7,44 +7,9 @@ import ImageReveal from "../ImageReveal";
 // Register GSAP ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-const testimonials = [
-  {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    company: "Tech Solutions",
-    text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p",
-  },{
-    name: "John Doe",
-    email: "john.doe@example.com",
-    company: "Tech Solutions",
-    text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.",
-  },{
-    name: "John Doe",
-    email: "john.doe@example.com",
-    company: "Tech Solutions",
-    text: "This is a fantastic product! It has really improved our workflow.",
-  },{
-    name: "John Doe",
-    email: "john.doe@example.com",
-    company: "Tech Solutions",
-    text: "This is a fantastic product! It has really improved our workflow.",
-  },{
-    name: "John Doe",
-    email: "john.doe@example.com",
-    company: "Tech Solutions",
-    text: "This is a fantastic product! It has really improved our workflow.",
-  },{
-    name: "John Doe",
-    email: "john.doe@example.com",
-    company: "Tech Solutions",
-    text: "This is a fantastic product! It has really improved our workflow.",
-  },
-  // Add more testimonials here
-];
-
-const TestimonialCards = () => {
+const TestimonialCards = (data) => {
   const testimonialRef = useRef(null); // Create a ref for the testimonial section
-
+  const testimonials = [...(data.data)]
   useEffect(() => {
     const items = gsap.utils.toArray(".testimonial-card");
     const testimonialElement = testimonialRef.current;
@@ -95,7 +60,7 @@ const TestimonialCards = () => {
   return (
     <section className="min-h-screen ts" ref={testimonialRef} id="testimonials">
       <div className="flex justify-center items-center">
-        <ImageReveal src="/test.png" alt="projects" cls={"pt-10 tsi"}/>
+        <ImageReveal src="/test.png" alt="projects" cls={"pt-10 tsi ts"}/>
       </div>
 
       <section className="testimonial-section">
@@ -104,7 +69,7 @@ const TestimonialCards = () => {
           <Layout>
             <div className="testimonial-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 justify-items-center gap-x-80 gap-y-12">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="testimonial-card drop w-96 h-96 p-8 text-center shadow-xl">
+                <div key={index} className="testimonial-card drop w-96 h-96 p-8 text-center shadow-xl ">
                   <h2 className="text-2xl font-bold mb-4">{testimonial.name}</h2>
                   <p className="company text-sm text-white mb-4">{testimonial.company}</p>
                   <p className="mb-6">{testimonial.text}</p>
