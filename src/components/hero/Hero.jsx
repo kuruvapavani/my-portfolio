@@ -65,7 +65,7 @@ const Hero = ({ data }) => {
 
   return (
     <Layout>
-      <div className="text-white p-4 flex flex-col justify-center items-center min-h-screen">
+      <div className="text-white p-4 flex flex-col justify-center items-center min-h-screen" id='home'>
         {/* Heading */}
         <h1 
           ref={headingRef} 

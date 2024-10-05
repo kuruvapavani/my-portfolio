@@ -3,7 +3,7 @@ import gsap from "gsap";
 import Logo from "./logo.svg";
 import Hero from "../hero/Hero";
 
-const Nav = ({data}) => {
+const Nav = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const getVpdr = () => {
@@ -17,34 +17,32 @@ const Nav = ({data}) => {
   const openNavbar = () => {
     const openTimeline = gsap.timeline();
     openTimeline.to(".navbar", 0, { display: "flex" });
-    openTimeline.to("#bg-circle", 0.5, { // Reduce the time from 1.5s to 0.5s
+    openTimeline.to("#bg-circle", 0.5, {
       scale: getVpdr(),
       ease: "expo.inOut",
     });
     openTimeline.fromTo(
       ".navbar ul li",
       { y: 25, opacity: 0 },
-      { y: 0, opacity: 1, stagger: 0.05, delay: 0.3 } // Reduced stagger and delay
+      { y: 0, opacity: 1, stagger: 0.05, delay: 0.3 }
     );
   };
-  
+
   const closeNavbar = () => {
     const closeTimeline = gsap.timeline();
     closeTimeline.to(".navbar ul li", {
       y: 25,
       opacity: 0,
-      stagger: -0.05, // Reduced stagger
-      delay: 0.1, // Reduced delay
+      stagger: -0.05,
+      delay: 0.1,
     });
-    closeTimeline.to("#bg-circle", 0.5, { // Reduce time from 1s to 0.5s
+    closeTimeline.to("#bg-circle", 0.5, {
       scale: 0,
       ease: "expo.inOut",
-      delay: -0.2, // Reduced negative delay for faster transitions
+      delay: -0.2,
     });
     closeTimeline.to(".navbar", 0, { display: "none" });
-
   };
-  
 
   const toggleNavbar = () => {
     if (isOpen) {
@@ -53,6 +51,11 @@ const Nav = ({data}) => {
       openNavbar();
     }
     setIsOpen(!isOpen);
+  };
+
+  const handleLinkClick = () => {
+    closeNavbar();
+    setIsOpen(false); // Ensure the navbar is closed
   };
 
   useEffect(() => {
@@ -72,9 +75,14 @@ const Nav = ({data}) => {
   return (
     <div id="wrapper">
       {/* Logo added at the top-left */}
-      <img className="logo" src={Logo} />
+      <img className="logo" src={Logo} alt="Logo" />
 
-      <button className={`navbar-toggle ${isOpen ? "active" : ""}`} id="toggle" type="button" onClick={toggleNavbar}>
+      <button
+        className={`navbar-toggle ${isOpen ? "active" : ""}`}
+        id="toggle"
+        type="button"
+        onClick={toggleNavbar}
+      >
         <svg viewBox="0 0 100 100" width="80">
           <path className="line top" d="m 30,33 h 40 c 0,0 9.044436,-0.654587 9.044436,-8.508902 0,-7.854315 -8.024349,-11.958003 -14.89975,-10.85914 -6.875401,1.098863 -13.637059,4.171617 -13.637059,16.368042 v 40" />
           <path className="line middle" d="m 30,50 h 40" />
@@ -84,10 +92,12 @@ const Nav = ({data}) => {
 
       <div className={`navbar ${isOpen ? 'open' : ''}`}>
         <ul>
-          <li><a data-text="1" href="#">Home</a></li>
-          <li><a data-text="2" href="#">Our Team</a></li>
-          <li><a data-text="3" href="#">Projects</a></li>
-          <li><a data-text="4" href="#">Contact</a></li>
+          <li><a data-text="1" href="#home" onClick={handleLinkClick}>Home</a></li>
+          <li><a data-text="2" href="#about" onClick={handleLinkClick}>About</a></li>
+          <li><a data-text="3" href="#skills" onClick={handleLinkClick}>Skills</a></li>
+          <li><a data-text="4" href="#projects" onClick={handleLinkClick}>Projects</a></li>
+          <li><a data-text="5" href="#experience" onClick={handleLinkClick}>Experience</a></li>
+          <li><a data-text="6" href="#contact" onClick={handleLinkClick}>Contact</a></li>
         </ul>
       </div>
 
@@ -95,7 +105,7 @@ const Nav = ({data}) => {
 
       {/* Hero Section comes right after the navbar */}
       <section className="hero-section">
-      <Hero  data={data}/>
+        <Hero data={data} />
       </section>
     </div>
   );

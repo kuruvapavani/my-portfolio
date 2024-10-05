@@ -27,7 +27,6 @@ const AdminDashboard = () => {
   }
 
   const onChange = (key) => {
-    console.log(`Selected tab: ${key}`);
   };
 
   return (

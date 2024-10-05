@@ -5,7 +5,6 @@ import ImageReveal from "../ImageReveal";
 
 const SkillsSection = (data) => {
 const skills = [...(data.data)];
-console.log(...(data.data));
 
 
   

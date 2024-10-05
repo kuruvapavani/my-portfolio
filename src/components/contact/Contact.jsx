@@ -98,6 +98,7 @@ const ContactForm = () => {
                   id="name"
                   value={inputValues.name}
                   onChange={handleInputChange}
+                  autoComplete='off'
                   className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
                 />
                 <label
@@ -116,6 +117,7 @@ const ContactForm = () => {
                   id="email"
                   value={inputValues.email}
                   onChange={handleInputChange}
+                  autoComplete='off'
                   className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
                 />
                 <label
@@ -133,6 +135,7 @@ const ContactForm = () => {
                   id="message"
                   value={inputValues.message}
                   onChange={handleInputChange}
+                  autoComplete='off'
                   className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
                   rows="4"
                 />

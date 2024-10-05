@@ -15,7 +15,7 @@ const AddTestimonial = () => {
     const fetchTestimonialsData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/get-testimonials`
+          `${import.meta.env.VITE_BACKEND_URI}/api/get-testimonials`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -71,7 +71,7 @@ const AddTestimonial = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/add-testimonial",
+        `${import.meta.env.VITE_BACKEND_URI}/api/add-testimonial`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -113,6 +113,7 @@ const AddTestimonial = () => {
                 name="name" // Add name attribute
                 value={inputValues.name}
                 onChange={handleInputChange}
+                autoComplete="off"
                 className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
               />
               <label
@@ -136,6 +137,7 @@ const AddTestimonial = () => {
                 name="email" // Add name attribute
                 value={inputValues.email}
                 onChange={handleInputChange}
+                autoComplete="off"
                 className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
               />
               <label
@@ -159,6 +161,7 @@ const AddTestimonial = () => {
                 name="company" // Add name attribute
                 value={inputValues.company}
                 onChange={handleInputChange}
+                autoComplete="off"
                 className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
               />
               <label
@@ -181,6 +184,7 @@ const AddTestimonial = () => {
                 name="text" // Add name attribute
                 value={inputValues.text}
                 onChange={handleInputChange}
+                autoComplete="off"
                 maxLength={250} // Limit the text length
                 className="block w-full p-3 text-white bg-transparent border-b-2 border-white focus:border-lightblue outline-none"
               />

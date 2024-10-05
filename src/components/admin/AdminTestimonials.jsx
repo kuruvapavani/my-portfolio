@@ -16,7 +16,7 @@ const AdminTestimonials = () => {
   useEffect(() => {
     const fetchTestimonialsData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/get-testimonials`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/get-testimonials`);
         const data = await response.json();
         setTestimonials(data.testimonials);
       } catch (error) {
@@ -49,7 +49,7 @@ const AdminTestimonials = () => {
     try {
       if (editingTestimonial) {
         // Update existing testimonial
-        const response = await fetch(`http://localhost:5000/api/update-testimonial/${editingTestimonial._id}`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/update-testimonial/${editingTestimonial._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formValues),
@@ -63,7 +63,7 @@ const AdminTestimonials = () => {
         }
       } else if (isAddingNewTestimonial) {
         // Add new testimonial
-        const response = await fetch('http://localhost:5000/api/add-testimonial', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/add-testimonial`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formValues),
@@ -97,7 +97,7 @@ const AdminTestimonials = () => {
 
   if (confirmDelete.isConfirmed) {
     try {
-      const response = await fetch(`http://localhost:5000/api/delete-testimonial/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/delete-testimonial/${id}`, {
         method: 'DELETE',
       });
       const data = await response.json();

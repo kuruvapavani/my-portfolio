@@ -150,19 +150,33 @@ html {
   background:#3ABEF9;
 }
 
+/* Add this CSS to your styles */
+
+@media (max-width: 768px) {
+  .abs {
+    margin-top: 100px; /* Adjust the value as per your needs */
+  }
+}
+
 /* projects */
 
 .project-card {
   position: relative;
   border-radius: 15px; /* Rounded corners */
   overflow: hidden;
-  width: 300px; /* Adjust as needed */
+  width: 400px !important; /* Adjust as needed */
   height: 400px; /* Adjust as needed */
   margin: 20px; /* Space between cards */
   backdrop-filter: blur(10px); /* Frosted glass effect */
   background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Shadow for depth */
   transition: transform 0.3s ease; /* Smooth scale transition */
+}
+
+@media (max-width: 600px) {
+  .project-card {
+    width: 300px !important;
+  }
 }
 
 .project-card:hover {
@@ -203,19 +217,6 @@ html {
 
 .link:hover {
   color: #fff; /* Change color on hover */
-}
-
-.project-card {
-  position: relative; /* Ensure positioning context */
-  border-radius: 15px; /* Rounded corners */
-  overflow: hidden;
-  width: 300px; /* Adjust as needed */
-  height: 400px; /* Adjust as needed */
-  margin: 20px; /* Space between cards */
-  backdrop-filter: blur(10px); /* Frosted glass effect */
-  background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Shadow for depth */
-  transition: transform 0.3s ease; /* Smooth scale transition */
 }
 
 .zz{
@@ -266,15 +267,7 @@ body{
   will-change: transform;
 }
 
-.project-card {
-  min-width: 300px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 
 .project-image {
   width: 100%;
@@ -290,7 +283,8 @@ body{
 
 .project-stack {
   font-size: 1rem;
-  color: #555;
+  color: white;
+  opacity:0.7;
   margin-bottom: 1rem;
 }
 
@@ -343,7 +337,7 @@ body{
 }
 
 .experience-card img {
-  width: 100%;
+  width: 400px;
   height: 200px;
   object-fit: cover;
   border-radius: 8px;
@@ -356,7 +350,7 @@ body{
 
 .experience-card p {
   font-size: 1rem;
-  color: #555;
+  color: white;
   margin-bottom: 1rem;
 }
 

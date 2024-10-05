@@ -15,7 +15,7 @@ const AddAbout = () => {
   useEffect(() => {
     const fetchAboutData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/get-portfolio-data');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/get-portfolio-data`);
         const data = response.data.about[0];  // Adjust this according to your backend response
         console.log(data);
         
@@ -55,7 +55,7 @@ const AddAbout = () => {
     e.preventDefault();
     try {
       // Send a PUT request to update the "About" section
-      const response = await axios.put('http://localhost:5000/api/update-about', {
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND_URI}/api/update-about`, {
         ...inputValues,
         id, // Send the ID for updating the correct document
       });
@@ -63,7 +63,7 @@ const AddAbout = () => {
       // Handle success response
       if (response.data.success) {
         // Fetch the updated data to reflect the changes
-        const updatedResponse = await axios.get('http://localhost:5000/api/get-about-data');
+        const updatedResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/get-about-data`);
         const updatedData = updatedResponse.data.about[0]; // Update according to your response structure
         
         // Update the state with the new data

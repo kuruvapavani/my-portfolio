@@ -27,7 +27,7 @@ const Projects = (data) => {
       const projectTween = gsap.to(projectsElement, {
         x: `-${totalScrollWidth}`,
         ease: "none",
-        onComplete: () => updateMargin(projectsElement.scrollWidth - (300 * projects.length) + 100), // Ensure margin updates after animation completes
+        onComplete: () => updateMargin(projectsElement.scrollWidth - (300 * projects.length) + 10), // Ensure margin updates after animation completes
       });
 
       ScrollTrigger.create({
@@ -86,7 +86,7 @@ const Projects = (data) => {
     // Animation and margin for mobile screens (max-width: 768px)
     mm.add("(max-width: 768px)", () => {
       const items = gsap.utils.toArray(".project-card");
-      const mobileMarginTop = projectsElement.scrollWidth + 4000;
+      const mobileMarginTop = projectsElement.scrollWidth + 2500;
       updateMargin(mobileMarginTop); // Apply margin for mobile devices
 
       items.forEach((item) => {

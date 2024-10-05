@@ -16,7 +16,7 @@ const AdminExperience = () => {
   useEffect(() => {
     const fetchExperienceData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/get-experiences`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/get-experiences`);
         const data = await response.json();
         setExperiences(data.experiences);
       } catch (error) {
@@ -49,7 +49,7 @@ const AdminExperience = () => {
     try {
       if (editingExperience) {
         // Update existing experience
-        const response = await fetch(`http://localhost:5000/api/update-experience/${editingExperience._id}`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/update-experience/${editingExperience._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formValues),
@@ -63,7 +63,7 @@ const AdminExperience = () => {
         }
       } else if (isAddingNewExperience) {
         // Add new experience
-        const response = await fetch('http://localhost:5000/api/add-experience', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/add-experience`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formValues),
@@ -98,7 +98,7 @@ const AdminExperience = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:5000/api/delete-experience/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/delete-experience/${id}`, {
           method: 'DELETE',
         });
         const data = await response.json();

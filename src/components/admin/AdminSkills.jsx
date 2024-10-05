@@ -11,7 +11,7 @@ const AdminSkills = () => {
   useEffect(() => {
     const fetchSkillsData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/get-portfolio-data`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/get-portfolio-data`);
         const data = await response.json();
         setSkills(data.skills);
       } catch (error) {
@@ -43,7 +43,7 @@ const AdminSkills = () => {
     if (editingSkill) {
       // Update existing skill
       try {
-        const response = await fetch(`http://localhost:5000/api/update-skill/${editingSkill._id}`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/update-skill/${editingSkill._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formValues),
@@ -67,7 +67,7 @@ const AdminSkills = () => {
     } else if (isAddingNewSkill) {
       // Add new skill
       try {
-        const response = await fetch('http://localhost:5000/api/add-skill', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/add-skill`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formValues),
@@ -101,7 +101,7 @@ const AdminSkills = () => {
 
     if (confirmDelete.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:5000/api/delete-skill/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/delete-skill/${id}`, {
           method: 'DELETE',
         });
         const data = await response.json();

@@ -1,3 +1,4 @@
+import "dotenv";
 import React, { useEffect, useState } from "react";
 import Layout from "./components/Layout";
 import Hero from "./components/hero/Hero";
@@ -18,7 +19,7 @@ const App = () => {
 
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/get-portfolio-data");
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/get-portfolio-data`);
       setPortfolioData(response.data); // Store the fetched data in the state
     } catch (error) {
       console.log(error);

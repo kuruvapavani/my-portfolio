@@ -11,7 +11,7 @@ const AdminProjects = () => {
   useEffect(() => {
     const fetchProjectsData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/get-portfolio-data`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/get-portfolio-data`);
         const data = await response.json();
         setProjects(data.projects);
       } catch (error) {
@@ -47,7 +47,7 @@ const AdminProjects = () => {
   
       if (editingProject) {
         // Update existing project
-        response = await fetch(`http://localhost:5000/api/update-project/${editingProject._id}`, {
+        response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/update-project/${editingProject._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formValues),
@@ -63,7 +63,7 @@ const AdminProjects = () => {
         }
       } else if (isAddingNewProject) {
         // Add new project
-        response = await fetch('http://localhost:5000/api/add-project', {
+        response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/add-project`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formValues),
@@ -98,7 +98,7 @@ const AdminProjects = () => {
 
     if (confirmDelete.isConfirmed) {
         try {
-            const response = await fetch(`http://localhost:5000/api/delete-project/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/delete-project/${id}`, {
                 method: 'DELETE',
             });
             const data = await response.json();

@@ -15,7 +15,7 @@ const AddHero = ({ introId }) => {
   useEffect(() => {
     const fetchIntroData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/get-portfolio-data`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URI}/api/get-portfolio-data`);
         const data = await response.json();
         setID(data.intro[0]._id);
         setInputValues({
@@ -53,8 +53,7 @@ const AddHero = ({ introId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("introId being sent:", id);  // Log the ID you're sending
-      const response = await axios.put(`http://localhost:5000/api/update-intro`, {
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND_URI}/api/update-intro`, {
         ...inputValues,
         id: id,  // Make sure this matches the ID in your database
       });
@@ -74,7 +73,6 @@ const AddHero = ({ introId }) => {
           }
         });
       }
-      console.log(response.data);
     } catch (error) {
       console.error('Error updating intro content:', error);
     }

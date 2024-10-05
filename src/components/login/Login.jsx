@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios"; // Import axios for HTTP requests
-import { useNavigate } from "react-router-dom"; // If using React Router for navigation
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const labels = useRef([]);
@@ -37,7 +37,7 @@ const Login = () => {
     e.preventDefault(); // Prevent the form from submitting the traditional way
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/login", {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/api/users/login`, {
         email: inputValues.email,
         password: inputValues.password,
       });
